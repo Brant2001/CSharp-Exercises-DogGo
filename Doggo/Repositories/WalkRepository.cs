@@ -26,6 +26,34 @@ namespace Doggo.Repositories
             }
         }
 
+        //public int GetWalkersDuration()
+        //{
+        //    using (SqlConnection conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (SqlCommand cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                SELECT SUM(Duration) AS Total
+        //                FROM Walks
+        //                WHERE WalkerId = @id
+        //            ";
+        //            cmd.Parameters.AddWithValue("@id", id);
+        //            SqlDataReader reader = cmd.ExecuteReader();
+        //            int TotalDuration = 0;
+        //            while (reader.Read())
+        //            {
+        //                if (!reader.IsDBNull(reader.GetOrdinal("Total")))
+        //                {
+        //                    TotalDuration = reader.GetInt32(reader.GetOrdinal("Total"));
+        //                }
+        //            };
+        //            reader.Close();
+        //            return TotalDuration / 60;
+        //        }
+        //    }
+        //}
+
         public List<Walk> GetWalksByWalkerId(int walkerId)
         {
             using (SqlConnection conn = Connection)
@@ -35,10 +63,15 @@ namespace Doggo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                SELECT Id, Date, Duration, WalkerId, DogId
-                FROM Walks
-                WHERE WalkerId = @walkerId
-            ";
+                        SELECT 
+                            Id, 
+                            Date, 
+                            Duration, 
+                            WalkerId, 
+                            DogId
+                        FROM Walks 
+                        WHERE WalkerId = @walkerId
+                    ";
 
                     cmd.Parameters.AddWithValue("@walkerId", walkerId);
 
